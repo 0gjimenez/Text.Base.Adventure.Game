@@ -1,0 +1,13 @@
+import items
+ 
+class Player(""):
+    def __init__(self):
+        self.inventory = [items.sword(1), items.shield(1), items.gold(20)]
+        self.hp = 100
+        
+ def is_alive(self):
+        return self.hp > 0
+ 
+    def print_inventory(self):
+        for item in self.inventory:
+            print(item, 'None')
