@@ -1,0 +1,49 @@
+import items
+ 
+class Player():
+    def __init__(self):
+        self.inventory = [items.sword(1), items.shield(1), items.gold(20)]
+        self.hp = 100
+        return self.hp > 0
+ 
+    def print_inventory(self):
+        for item in self.inventory:
+            print(item, 'Name')
+            import items
+ 
+class Tree(object):
+    def __init__(self):
+        self.inventory = [items.wood()]
+        self.hp = 25
+        
+ 
+    def is_alive(self):
+        return self.hp > 0
+
+class Player(object): 
+       
+    def __init__(self, name): 
+        self.name = name 
+  
+    # To get name 
+    def getName(self): 
+        return self.name 
+     
+    def isPlayer(self): 
+        return False
+  
+  
+class Tree(Player): 
+  
+    # Here we return true 
+    def isTree(self): 
+        return True
+  
+ 
+emp = Player("Player")  
+print(emp.getName(), emp.isPlayer()) 
+  
+emp = Tree("Tree")  
+print(emp.getName(), emp.isPlayer()) 
+
+            
