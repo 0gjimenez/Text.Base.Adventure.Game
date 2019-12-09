@@ -1,0 +1,13 @@
+class forest():
+  def _init_(self): pass
+  def play(self): 
+    print('The forest has not developed')
+
+
+import sys
+ 
+
+class Intro(forest):
+  def play(self): 
+    print('Hola! Comó estas amigo.\nObjective: \n\tFind your way through the dense forest by navigating yor way through the wilderness.')
+    if not input('Ready? [y/n]: ') == 'y': sys.exit()
