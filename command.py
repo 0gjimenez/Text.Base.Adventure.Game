@@ -7,7 +7,7 @@ class Command (object):
 
 up = Command ("Moves the character up", move (up, 1)) 
 down = Command ("Moves  the character down", move (down, 1)) 
-left = Command (''Moves the character left", move (left, 1))
+left = Command ("Moves the character left", move (left, 1))
 right = Command ("Moves the character right", move (right, 1)) 
 
 commanddict = {up:true, down:true, left:true, right:true}
