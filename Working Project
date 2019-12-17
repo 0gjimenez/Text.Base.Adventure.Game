@@ -1,0 +1,137 @@
+import time 
+
+
+answer_A = ["A", "a"]
+answer_B = ["B", "b"]
+answer_C = ["C", "c"]
+yes = ["Y", "y", "yes"]
+no = ["N", "n", "no"]
+
+
+sword = 1
+stick = 0
+map = 1
+shotgun = 0
+
+
+required = ("\nUse only A, B, or C\n") 
+
+
+def intro():
+  print ("You wake up in a middle of a dense forest."
+  "???: Hello! adventurer I am Moghan and I’m a moogle"
+"Moghan: you seemed to be near death so I decided to patch you up kupo!"
+"Moghan: Here’s a map to see where you are type you can even check where you are on it kuplo."
+"Moghan: This sword was pretty beat up luckily I was able to repair it"
+"Moghan: You don’t seem like you’re very experienced with this world well I’ll be here to help I’ll follow ya around and show ya the way of this world kupo."
+  "Suddenly, they hear howling coming from the North."
+  "The sounds seem to get closer and closer" 
+  "Moghan: What will we do?:")
+  time.sleep(1)
+  print ("""  A. Stand behind me B. lets hide in this tree
+  C. Run""")
+  choice = input(">>> ") 
+  if choice in answer_A:
+    option_bravery()
+  elif choice in answer_B:
+    print ("\n As you and Moghan ascend up the tree,you slip off a branch and you fall to your death! ")
+  elif choice in answer_C:
+    option_run()
+  else:
+    print (required)
+    intro()
+
+def option_bravery(): 
+  print ("A pack of wolves appear in front of your")
+  time.sleep(1)
+  print ("""  A. Run
+  B. Throw your sword at them
+  C. Run towards a nearby cave""")
+  choice = input(">>> ")
+  if choice in answer_A:
+    option_run()
+  elif choice in answer_B:
+    print ("\n The sword didn't even come close to hitting the wolves"
+    "The wolves see the attempt as a thread, so they maul you and Moghan to death.")
+  elif choice in answer_C:
+    option_cave()
+  else:
+    print (required)
+    option_bravery()
+
+def option_cave():
+  print ("\nThe cave seem to appear empty, but is very dark"
+ "You and Moghan seemed to be hesitant"
+ "You enter anyways Y/N?")
+  choice = input(">>> ")
+  if choice in yes:
+    sword = 1 
+  else:
+    sword = 0
+  print ("\nWhat do you and Moghan do next?")
+  time.sleep(1)
+  print ("""  A. build a fire
+  B. run back and fight
+  C. Run""")
+  choice = input(">>> ")
+  if choice in answer_A:
+    print ("\nA patch of thatch is found laying on the ground,"
+    "Moghan stacks thatch in a pile while you start a spark,"
+    "You succefully start the fire, but Moghan starts to freak out"
+    "You look around and a bear appears in front of your eyes.\n\nYou died!")
+  elif choice in answer_B:
+   if sword > 0:
+    print ("\nYou swipe your sword rapidly against the pack of wolves"
+  "Three are killed and the rest run away\n\nYou survived!")
+   else: 
+     print ("\nAs you were running, you kept looking back," 
+     "Suddenly, gravity pulls you down a revine"
+     "You should have fought"
+     "You wimp \n\ndead!")
+  elif choice in answer_C:
+    print ("As the wolves enter the dark cave, you and Moghan sliently "
+    "sneak out. Unfortunately the wolves smell Moghan fart and start chasing after them ")
+    option_run()
+  else:
+    print (required)
+    option_cave()
+
+def option_run():
+  print ("\nYou and Moghan run as quickly as possible, but the wolves' "
+  "speed is too great. You will:")
+  time.sleep(1)
+  print ("""  A. climb a tree
+  B. Trapped, so you fight
+  C. Run towards a lake""")
+  choice = input(">>> ")
+  if choice in answer_A:
+    print ("You don't make it. "
+    "\n\nYou both died!")
+  elif choice in answer_B:
+    print ("\nYou're no match for them. "
+    "\n\nYou died!")
+  elif choice in answer_C:
+    option_town()
+  else:
+    print (required)
+    option_run()
+    
+def option_town():
+  print ("\nWhile frantically running, you and Moghan find an abandon shed, In it is a shotgun, Do you pick it up? Y/N")
+  choice = input(">>> ")
+  if choice in yes:
+    shotgun = 1 
+  else:
+    shotgun = 0
+  print ("The wolves quickely caught up"
+)
+  time.sleep(1)
+  if shotgun > 0:
+    print ("\nYou quickly pull out the shotgun,  "
+    "hoping it doesn't jam. It doesn't! so you kill all of the wolves "
+   "\n\n you survived!")
+  else: 
+     print ("\nMaybe you should have picked up the gun. "
+     "\n\nYou died!")
+
+intro()
