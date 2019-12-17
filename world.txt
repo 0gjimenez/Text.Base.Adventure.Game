@@ -1,0 +1,7 @@
+PlainsTile	PlainsTile	PlainsTile 	MountainDungeonTile	MountainTile	MountainTile	MountainTile
+PlainsTile	PlainsTile	PlainsTile	ForestTile	MountainTile	MountainTile	MountainTile
+PlainsTile	PlainsTile	ForestTile	ForestTile	ForestTile	MountainTile	MountainTile
+PlainsDungeonTile	ForestTile	ForestTile	SpawnTile	ForestTile	ForestTile	SwampDungeonTile
+FairyTile	FairyTile	ForestTIle	ForestTile	ForestTile	SwampTile	SwampTile
+FairyTile	FairyTile	FairyTile	ForestTile	SwampTile	SwampTile	SwampTile
+FairyTile	FairyTile	FairyTile	FairyDungeonTile	SwampTile	SwampTile	SwampTile

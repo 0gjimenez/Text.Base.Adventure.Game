@@ -1,0 +1,3 @@
+LootTile	EnemyTile	EnemyTile
+BossTile	EnemyTile	EnemyTile
+EnemyTile	EnemyTile	SpawnTile

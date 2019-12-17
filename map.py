@@ -1,107 +1,97 @@
-level = {}
+import items, enemies
 
-starting_position = (0, 0)
-
-class Map:
-  def __init__(self, name, x, y, intro, description)
-    self.name = name
-    self.x = x
-    self.y = y
-    self.intro = intro
-    self.description = description
-  
-  def intro_text(self):
-    return self.intro
-
-  def adjacent_moves(self):
-    north = tile_exists(self.x, self.y - 1).name
-    south = tile_exists(self.x , self.y + 1).name
-    east = tile_exists(self.x + 1, self.y).name
-    west = tile_exists(self.x - 1, self.y).name
-    moves = []
-
-    if north != None:
-      return moves
-  def available_actions(self, **kwargs):
-    if kwargs:
-      moves = []
-      for key, value in kwargs.items():
-        if key == "in_battle":
-            if value == True:
-              pass
-        if key == "in_town":
-            if value == True:
-              print("In town, from available actions")
-              pass
-      else:
-        moves = self.adjacent_moves()
-        return moves
-
-class SpawnPoint(Map):
+class MapTile:
   def __init__(self, x, y):
     self.x = x
     self.y = y
-    self.name = "Spawn"
-    self.intro = "A spawin"
-    self.description = "Spawn place"
-    super().__init__(
-      name = self.name,
-      x = self.x,
-      y = self.y,
-      intro = self.intro,
-      description = self.description
-    )
+    
+  def intro_text(self):
+    raise NotImplementedError()
+  
+  def modify_player(self, player):
+    raise NotImplementedError
+
+class StartingTile(MapTile):
+  def intro_text(self):
+    return ""
+    
+  def modify_player(self, player):
+    #Room has no action on player
+    pass
+class LootTile(MapTile):
+  def __init__(self x, y, item):
+    self.item = item
+    super().__init__(x, y)
+    
+  def add_loot(self, player):
+    player.inventory.append(self.item)
+    
+  def modify_player(self, player):
+    self.add_loot(player)
+    
+class EnemyTile(MapTile):
+  def __init__(self, x, y, enemy):
+    self.enemy = enemy
+    super().__init__(x, y)
+    
+  def modify_player(self, the_player):
+    if self.enemy.is_alive():
+      the_player.hp = the_player.hp - self.enemy.damage
+      print("Enemy does {} damage. Y have {} HP remaining.".format(self.enemy.damge, the_player.hp))
+
+class biome(MapTile):
+  def intro_text(self):
+    return"""blank"""
   
   def modify_player(self, player):
     pass
 
+class weapons(LootTile):
+  def __init__(self, x, y):
+    super().__init__(x, y, items.blank())
+
+  def intro_text(self):
+    return """ """
+
+class PlainsTile(biome(MapTile)):
+
+class PlainsDungeonTile(EnemyTile):
+  super().__init__(x, y, enemies.fillinenemy())
+
+class MountainTile(biome(MapTile)):
+
+class MountainDungeonTile(EnemyTile):
+  super().__init__(x, y, enemies.fillinenemy())
+
+class FairyTile(biome(MapTile)):
+
+class FairyDungeonTile(EnemyTile):
+  super().__init__(x, y, enemies.fillinenemy())
+
+class ForestTile(biome(MapTile)):
+
+class SwampTile(biome(MapTile)):
+
+class SwampDungeonTile(EnemyTile):
+  super().__init__(x, y, enemies.fillinenemy())
+
+
+_world = {}
+starting_position = (0, 0)
   
-
 def load_tiles():
-  with open("World.txt", "r") as f:
-      rows = f.readlines()
-    x_max = len(rows[0].split("\t"))
+  """Parses a file that describes the world space into the _world object"""
+  with open('World.txt', 'r') as f:
+    rows = f.readlines()
+  x_max = len(rows[0].split('\t')) # Assumes all rows contain the same 
     for y in range(len(rows)):
-        cols = rows[y].split("\t")
+      cols = rows[y].split('\t')
+      for x in range(x_max):
+        tile_name = cols[x].replace('\n', '') #Windows users may need to replace '\r\n'
+        if tile_name == 'SpawnTile':
+          global starting_position
+          starting_position = (x, y)
+        _world[(x, y)] = None if tile_name == '' else getattr(__import__('tiles'), tile_name) (x,y)
 
-        try:
-          for x in range(x_max):
-            title_name = cols[x].replace("\n", "")
-
-              if title_name == "":
-                  level[(x, y)] = None
-              else:
-                  if title_name == "SpawnTile":
-                        level[(x, y)] = SpawnTile(x, y)
-                        global starting_position
-                        starting_position = (x, y)
-                    if title_name == "ForestTile":
-                        level[(x, y)] = ForestTile(x, y)
-                    if title_name == "MountainTile":
-                        level[(x, y)] = MountainTile(x, y)
-                    if title_name == "PlainsTile":
-                        level[(x, y)] = PlainsTile(x, y)
-                    if title_name == "FairyTile":
-                        level[(x, y)] = FairyTile(x, y)
-                    if title_name == "SwampTile":
-                        level[(x, y)] = SwampTile(x, y)
-                    if title_name == "ForestDungeon":
-                        level[(x, y)] = ForestDungeon(x, y)
-                    if title_name == "MountainDungeon":
-                        level[(x, y)] = MountainDungeon(x, y)
-                    if title_name == "PlainsDungeon":
-                        level[(x, y)] = PlainsDungeon(x, y)
-                    if title_name == "FairyDungeon":
-                        level[(x, y)] = FairyDungeon(x, y)
-                    if title_name == "SwampDungeon":
-                        level[(x, y)] = SwampDungeon(x, y)
-        except Exception as e:
-            if e == IndexError:
-                print("Index done not exist!!")
-            else:
-                print(e)
-                quit()
-
-
-def title_exist(x, y):
-    return level.get((x, y))
+def tile_exists(x, y);
+    return _world.get((x, y))
